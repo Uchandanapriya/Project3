@@ -1,0 +1,23 @@
+<table>
+
+<tr>
+<% count=0 %>
+<% @perfumes_gallery.each do |perfume|%>
+
+<% if (count % 5) == 0%>
+</tr>
+<tr>
+<% end %>
+<% count+=1 %>
+<td>
+<% perfume.files.each do |file| %>
+    <%= image_tag file,width:"250px"%>
+    <% end %><br/>
+Name : <%= perfume.name %><br />
+Category :<%= perfume.category %><br />
+Color :<%= perfume.color %><br />
+Price : <%= perfume.price %>
+<%= button_to 'Add to Cart', line_items_path(:store_id => perfume.id)%> </td>
+<% end %>
+</tr>
+</table>
