@@ -1,6 +1,8 @@
+</br>
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Fragrance Store</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,321 +12,155 @@
   </head>
 
   <body>
-  <p class="navbar-text float-top">
-  <% if user_signed_in? %>
-    Logged in as <strong><%= current_user.email %></strong>.
-    <%= link_to "Edit profile", edit_user_registration_path, class: "navbar-link" %> |
-    <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "navbar-link"  %>
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path, class: "navbar-link"  %> |
-    <%= link_to "Login", new_user_session_path, class: "navbar-link"  %>
+  <% if notice %>
+  <p class="alert alert-success"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<p class="navbar-text float-top">
+<% if user_signed_in? %>
+  Logged in as <strong><%= current_user.email %></strong>.
+  <button><%= link_to "Edit profile", edit_user_registration_path, class: "navbar-link" %> </button>|
+  <button><%= link_to "Logout", destroy_user_session_path, method: :delete, class: "navbar-link"  %></button>
+<% else %>
+  <button><%= link_to "Sign up", new_user_registration_path, class: "navbar-link"  %></button> |
+  <button><%= link_to "Login", new_user_session_path, class: "navbar-link"  %></button>
+<% end %>
+</p>
+
+
+<% if session[:admin]%>
+				<button><a href="/admin/logout">Admin logout</a></button>
+		<% else %>
+				<button><a href= "admin/login">Admin login</a></button>
+		<% end %>
+
+    <%= form_for(:search,:url=>"/gallery/search") do |f| %>
+      Search <input type="text" name="search">
+      <input type="submit" value="Go">
   <% end %>
-  </p>
-  <% if session[:admin]%>
-		<li><a href="/admin/logout">Admin logout</a></li>
-	<% else %>
-			<li><a href= "admin/login">Admin login</a></li>
-	<% end %>
-  <!-- banner bg main start -->
-      <div class="banner_bg_main">
-         <!-- header top section start -->
-         <div class="container">
-            <div class="header_section_top">
-               <div class="row">
-                  <div class="col-sm-12">
-                     <div class="custom_menu">
-                        <ul>
-                           <li><a href="/home/index">Home</a></li>
-                           <li><a href="/users/edit">Edit Profile</a></li>
-                           <li><a href="/users/sign_up">Sign up</a></li>
-                           <li><a href="/admin/login">Admin Login</a></li>
-                           <li><a href="/gallery/index">Gallery</a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- header top section start -->
-         <!-- logo section start -->
-         <div class="logo_section">
+
+<div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container">
+          <a class="navbar-brand" href="index.html">
+            <img src="/assets/a5.png" alt="" /><span>
+              Fragrance Store
+            </span>
+          </a>
+
+          <div class="navbar-collapse" id="">
             <div class="container">
-               <div class="row">
-                  <div class="col-sm-12">
-                     <div class="logo"><h1><a href="#">Fragrance Store</a></h1></div>
+              <div class=" mr-auto flex-column flex-lg-row align-items-center">
+                <ul class="navbar-nav justify-content-between ">
+                  <div class="d-none d-lg-flex">
+                    <li class="nav-item">
+                      <a class="nav-link" href="fruit.html">
+                        Customer Number : 7702064930</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="service.html">
+                        uppuchandana@gmail.com
+                      </a>
+                    </li>
                   </div>
-               </div>
+                  <div class=" d-none d-lg-flex">
+                    <li class="nav-item">
+                    <% if user_signed_in? %>
+                      <a class="nav-link" href="http://localhost:3000/home/index">
+                        Home
+                      </a>
+                      <a class="nav-link" href="http://localhost:3000/gallery/index">
+                        Gallery
+                      </a>
+                      <a class="nav-link" href="http://localhost:3000/carts">
+                        Cart
+                      </a>
+                      <a class="nav-link" href="http://localhost:3000/gallery/checkout">
+                        Checkout
+                      </a>
+                    <% else %>
+                    <a class="nav-link" href="http://localhost:3000/home/index">
+                       Home
+                    </a>
+                    <% end %>
+                    </li>
+                    <form class="form-inline my-2 ml-5 mb-3 mb-lg-0">
+                      <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+                    </form>
+                  </div>
+                </ul>
+              </div>
             </div>
-         </div>
-         <!-- logo section end -->
-         <!-- header section start -->
-         <div class="header_section">
-            <div class="container">
-               <div class="containt_main">
-                  <div id="mySidenav" class="sidenav">
-                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                     <a href="index.html">Home</a>
-                     <a href="fashion.html">Fashion</a>
-                     <a href="electronic.html">Electronic</a>
-                     <a href="jewellery.html">Jewellery</a>
-                  </div>
-                  <span class="toggle_icon" onclick="openNav()"><img src="/assets/toggle-icon.png"></span>
-                  <div class="dropdown">
-                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category 
-                     </button>
-                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                     </div>
-                  </div>
-                  <div class="main">
-                     <!-- Another variation with a button -->
-                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search this blog">
-                        <div class="input-group-append">
-                           <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
-                           <i class="fa fa-search"></i>
-                           </button>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="header_box">
-                     <div class="lang_box ">
-                        <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                        <img src="/assets/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                        </a>
-                        <div class="dropdown-menu ">
-                           <a href="#" class="dropdown-item">
-                           <img src="/assets/flag-france.png" class="mr-2" alt="flag">
-                           French
-                           </a>
-                        </div>
-                     </div>
-                     <div class="login_menu">
-                        <ul>
-                           <li><a href="#">
-                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                              <a href="/carts/48">cart</a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
+
+            <div class="custom_menu-btn">
+              <button onclick="openNav()"></button>
             </div>
-         </div>
-         <!-- header section end -->
-         <!-- banner section start -->
-         <div class="banner_section layout_padding">
-            <div class="container">
-               <div id="my_slider" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                     <div class="carousel-item active">
-                        <div class="row">
-                           <div class="col-sm-12">
-                              <h1 class="banner_taital">Get Start <br>Your favourite shopping</h1>
-                              <div class="buynow_bt"><a href="/gallery/index">Buy Now</a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="carousel-item">
-                        <div class="row">
-                           <div class="col-sm-12">
-                              <h1 class="banner_taital">Get Start <br>Your favourite shopping</h1>
-                              <div class="buynow_bt"><a href="/gallery/index">Buy Now</a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="carousel-item">
-                        <div class="row">
-                           <div class="col-sm-12">
-                              <h1 class="banner_taital">Get Start <br>Your favourite shopping</h1>
-                              <div class="buynow_bt"><a href="/gallery/index">Buy Now</a></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
-                  <i class="fa fa-angle-left"></i>
-                  </a>
-                  <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
-                  <i class="fa fa-angle-right"></i>
-                  </a>
-               </div>
+            <div id="myNav" class="overlay">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <div class="overlay-content">
+                <a href="index.html">HOME</a>
+                <a href="product.html">PRODUCTS</a>
+              </div>
             </div>
-         </div>
-         <!-- banner section end -->
+          </div>
+        </nav>
       </div>
-      <%= yield%>
-      <!-- banner bg main end -->
-      <!-- fashion section start -->
-      <div class="fashion_section">
-         <div id="main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <h1 class="fashion_taital">Fragrances</h1>
-                     <div class="fashion_section_2">
-                        <div class="row">
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Portraits Duke</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">599</span></p>
-                                 <div class="tshirt_img"><img src="/assets/a17.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Portrait Rose</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">1299</span></p>
-                                 <div class="tshirt_img"><img src="/assets/a18.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Shalimar</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">1700</span></p>
-                                 <div class="tshirt_img"><img src="/assets/a27.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                   
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Tom Pord</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">1300</span></p>
-                                 <div class="tshirt_img"><img src="/assets/a28.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Artistry</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">1300</span></p>
-                                 <div class="tshirt_img"><img src="/assets/a29.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Apres</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">1200</span></p>
-                                 <div class="tshirt_img"><img src="/assets/c5.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Celine</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">3000</span></p>
-                                 <div class="tshirt_img"><img src="/assets/a15.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Creed</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">799</span></p>
-                                 <div class="tshirt_img"><img src="/assets/a33.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">Smooth Combo</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">2500</span></p>
-                                 <div class="tshirt_img"><img src="/assets/a6.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-sm-4">
-                              <div class="box_main">
-                                 <h4 class="shirt_text">AND Combo</h4>
-                                 <p class="price_text">Price  <span style="color: #262626;">1400</span></p>
-                                 <div class="tshirt_img"><img src="/assets/c1.png"></div>
-                                 <div class="btn_main">
-                                    <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                    
-                                 </div>
-                              </div>
-                           </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="slider_item-box">
+              <div class="slider_item-container">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="offset-md-2 col-md-4">
+                      <div class="slider_item-detail">
+                        <div>
+                          <h2 class="slider_heading">
+                            50% OFF <br />
+                            First order
+                          </h2>
+                          <p>
+                          Fragrances are substances possessing strong-smelling organic compounds that have characteristic, pleasant odors. Manufacturers use them in many products as a perfume. messengers in our body.
+                          </p>
+                          <div class="d-flex">
+                            <a href="http://localhost:3000/gallery/index">
+                              Order Now
+                            </a>
+                          </div>
                         </div>
-                     </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="hero_img-box">
+                        <img src="/assets/a2.png" alt="" />
+                      </div>
+                    </div>
                   </div>
-               </div>
-               <div class="location_main">See more : <a href="/gallery/index"></a></div>
-      <!-- footer section start -->
-      <div class="footer_section layout_padding">
-         <div class="container">
-         <div class="logo"><h1><a href="#">Fragrance Store</a></h1></div>
-            <div class="input_bt">
-               <input type="text" class="mail_bt" placeholder="Your Email" name="Your Email">
-               <span class="subscribe_bt" id="basic-addon2"><a href="#">Subscribe</a></span>
+                </div>
+              </div>
             </div>
-            <div class="footer_menu">
-               <ul>
-                  <li><a href="#">Best Sellers</a></li>
-                  <li><a href="#">Gift Ideas</a></li>
-                  <li><a href="#">New Releases</a></li>
-                  <li><a href="#">Today's Deals</a></li>
-                  <li><a href="#">Customer Service</a></li>
-               </ul>
-            </div>
-            <div class="location_main">Help Line  Number : <a href="#">+91 7702064930</a></div>
-            <div class="location_main">Email to us : <a href="#">uppuchandana426@gmail.com</a></div>
-         </div>
+          </div>
       </div>
-      <!-- footer section end -->
-      <!-- copyright section start -->
-      <div class="copyright_section">
-         <div class="container">
-            <p class="copyright_text">© 2020 All Rights Reserved. Design by <a href="https://html.design">Free html  Templates</a></p>
-         </div>
-      </div>
-      <!-- copyright section end -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <script>
-         function openNav() {
-           document.getElementById("mySidenav").style.width = "250px";
-         }
-         
-         function closeNav() {
-           document.getElementById("mySidenav").style.width = "0";
-         }
-      </script>
+    </section>
+
+    <!-- end slider section -->
+  </div>
+  
+   <%= yield %>
+   
+   
+  
+  
+  </body>
+  
+  
+  </html>
