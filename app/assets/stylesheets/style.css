@@ -776,4 +776,23 @@ a:focus {
   color: #030000;
 }
 
+.center {
+    margin: auto;
+    width:30%;
+    border: 2px solid ;
+    padding: 10px;
+  }
+  .center_hello {
+    margin: auto;
+    width:70%;
+    padding: 10px;
+  }
+  
+  
+  .center_hi {
+    margin: auto;
+    width:35%;
+    padding: 10px;
+  }
+
 /* end footer section*/
